@@ -40,7 +40,7 @@ const Navbar = ({ history }, props) => {
               <MDBNavLink to="/">Home</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="#!">Pricing</MDBNavLink>
+              <MDBNavLink to="#!">Shop</MDBNavLink>
             </MDBNavItem>
 
             {!isAuthenticated() && (
@@ -56,7 +56,6 @@ const Navbar = ({ history }, props) => {
 
 
             {isAuthenticated() && (
-              
               <MDBNavItem>
               <MDBNavLink onClick={()=> signout(()=>{
                 history.push('/')
@@ -64,9 +63,18 @@ const Navbar = ({ history }, props) => {
               </MDBNavItem>
             )}
 
-            <MDBNavItem>
+            {isAuthenticated() && isAuthenticated().user.role === 0 && (
+              <MDBNavItem>
               <MDBNavLink to="/user/dashboard">Dashboard</MDBNavLink>
-            </MDBNavItem>
+              </MDBNavItem>
+            )}
+
+            {isAuthenticated() && isAuthenticated().user.role === 1 && (
+              <MDBNavItem>
+              <MDBNavLink to="/admin/dashboard">Dashboard</MDBNavLink>
+              </MDBNavItem>
+            )}
+            
 
             <MDBNavItem>
               <MDBDropdown>
@@ -76,9 +84,9 @@ const Navbar = ({ history }, props) => {
 
                 <MDBDropdownMenu className="dropdown-default">
                   <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
+                  {/* <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
                   <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem> */}
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>

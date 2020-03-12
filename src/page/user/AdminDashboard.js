@@ -4,19 +4,22 @@ import { isAuthenticated } from '../../auth/index'
 import { MDBCard,MDBListGroup, MDBListGroupItem, MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import { Link } from 'react-router-dom' 
 
-const Dashboard = props => {
+const AdminDashboard = props => {
 
   const { user:{ _id, name, email, role } } = isAuthenticated();
 
-  const userLink = () => {
+  const adminLink = () => {
     return (
       <MDBCard>
         <h4 className="card-header">
-              User Link
+              Admin Link
         </h4>
         <MDBListGroup>
           <MDBListGroupItem>
-            <Link className="nav-link" to="/card">My card</Link>
+            <Link className="nav-link" to="/card/category">Create Category</Link>
+          </MDBListGroupItem>
+          <MDBListGroupItem>
+            <Link className="nav-link" to="/card/product">Create Product</Link>
           </MDBListGroupItem>
           <MDBListGroupItem>
             <Link className="nav-link" to="/profile/update">Update Profile</Link>
@@ -26,7 +29,7 @@ const Dashboard = props => {
     )
   };
 
-  const userInfo = () => {
+  const adminInfo = () => {
     return(
             <MDBCard className="card mb-5">
             <h3 className="card-header">
@@ -41,27 +44,27 @@ const Dashboard = props => {
     )
   };
 
-  const PurchaseHistory = () => {
-    return(
-            <MDBCard className="card mb-5">
-            <h3 className="card-header">Purchase history</h3>
-            <MDBListGroup>
-            <MDBListGroupItem>history</MDBListGroupItem>
-            </MDBListGroup>
-            </MDBCard>
-    )
-  }
+//   const PurchaseHistory = () => {
+//     return(
+//             <MDBCard className="card mb-5">
+//             <h3 className="card-header">Purchase history</h3>
+//             <MDBListGroup>
+//             <MDBListGroupItem>history</MDBListGroupItem>
+//             </MDBListGroup>
+//             </MDBCard>
+//     )
+//   }
     return(
       
         <Layout title="Dashboard" description={`Hi ${name}, email: ${email}`} className="container-fluid">
           <MDBContainer>
             <MDBRow>
               <div className="col-md-3">
-                {userLink()}
+                {adminLink()}
               </div>
               <div className="col-md-9">
-                {userInfo()}
-                {PurchaseHistory()}
+                {adminInfo()}
+                {/* {PurchaseHistory()} */}
               </div>
             </MDBRow>
           </MDBContainer>
@@ -69,4 +72,4 @@ const Dashboard = props => {
     )
 }
 
-export default Dashboard
+export default AdminDashboard

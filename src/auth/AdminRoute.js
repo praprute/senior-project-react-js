@@ -6,14 +6,14 @@ import { MDBAlert } from 'mdbreact';
 import Signin from './../component/sign&signup/Signin'
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const AdminRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAuthenticated() ? (
+            isAuthenticated() && isAuthenticated().user.role === 1 ? (
                 <Component {...props} />
             ) : (
-                // alert("Please Sigin"),
+                // alert("You are not an administrator."),
                 <Redirect
                     to={{
                         pathname: "/",
@@ -25,4 +25,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     />
 );
 
-export default PrivateRoute;
+export default AdminRoute;
