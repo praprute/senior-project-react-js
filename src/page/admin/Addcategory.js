@@ -42,10 +42,11 @@ const AddCategory = () => {
             success="right"
             onChange={handleChange}
             value={name}
-            autoFocus />
+            autoFocus 
+            required
+            />
             </div>
             <button className="btn btn-success">Create Category</button>
-            
         </form>
     )
 
@@ -53,17 +54,36 @@ const AddCategory = () => {
         if(success){
             return (
                 <MDBAlert color="success" >
-                    Create Category success
+                    {name} ถูกเพิ่มลงในหมวดหมู่ของท่านเรียบร้อย
                 </MDBAlert>
             )
         }else if(error){
             return (
                 <MDBAlert color="danger" >
-                    {error}
+                    {name} ถูกเพิ่มไปแล้ว
                 </MDBAlert>
             )
         }
     }
+
+    const goBack = () => (
+
+        <button 
+        className="btn btn-secondary">
+            <Link to="/admin/dashboard" 
+            className="text-uppercase"
+            style={{color:"inherit"}}
+            >
+                 Back to Dashboard
+            </Link>
+        </button>
+
+        // <div className="mt-5">
+        //     <Link to="/admin/dashboard" className="text-warning">
+        //          Back to Dashboard
+        //     </Link>
+        // </div>
+    )
 
     return(
         <Layout title="Add a new Category" description={`Hi ${user.name}, ready to add a new Category ? `} className="container-fluid">
@@ -72,6 +92,8 @@ const AddCategory = () => {
             <MDBRow>
               <div className="col-md-8 offset-md-2">
                 {newCategoryFom()}
+                <br/>
+                {goBack()}
               </div>
             </MDBRow>
           </MDBContainer>
