@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import Navbar from "../component/navbar/nav"
-import {Jumbotron, Button, Container} from 'react-bootstrap'
+import Navbar from "../component/navbar/nav";
+import Footer from './footer/Footer';
+import {Jumbotron, Button, Container} from 'react-bootstrap';
+import { MDBContainer, MDBCol, MDBRow } from 'mdbreact';
+import "./../styles.css"
 
 const Layout = ({
     title = "Title",
@@ -9,21 +12,29 @@ const Layout = ({
     children
 }) => (
     <div>
-        <Navbar />
-        <Jumbotron>
-        <Container className="container-fluid">
-            <h2>{title}</h2>
+        <Navbar /> 
+        <div className="backdrop">
+        <div className="jumbotron card card-image">
+        
+        <Container className="container-fluid ">
+        <MDBRow className="row-jumbotron">
+        {/* <MDBCol size = "7" >
+        </MDBCol>
+        <MDBCol size = "5"> */}
+          <div className="jumbotext">
+            <h2 >{title}</h2>
             <p className="lead">{description}</p>
-            {/* <p>
-              This is a simple hero unit, a simple jumbotron-style component for calling
-              extra attention to featured content or information.
-            </p> */}
-            <p>
-              <Button variant="primary">Learn more</Button>
-            </p>
-        </Container>   
-        </Jumbotron>
+          </div>
+        {/* </MDBCol> */}
+        </MDBRow>
+        
+        </Container> 
+        </div> 
+        </div>
+       
         <div className={className}>{children}</div>
+
+        <Footer />
     </div>
 );
 export default Layout

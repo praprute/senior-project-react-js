@@ -5,6 +5,8 @@ import { Link, withRouter } from "react-router-dom";
 import Signup from './../sign&signup/Signup'
 import Signin from './../sign&signup/Signin'
 import { signout,isAuthenticated } from '../../auth/index'
+import { itemTotal } from './../card/CardHelper'
+import './navstyle.css'
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
@@ -27,29 +29,40 @@ const Navbar = ({ history }, props) => {
 
     return(
     <div>
-      <MDBNavbar color="default-color" dark expand="md">
+      <MDBNavbar className="navbar" color="white" light expand="md">
 
         <Container>
-        <MDBNavbarBrand>
-          <strong className="white-text">Navbar</strong>
+        <MDBNavbarBrand >
+        
+        <MDBNavLink to="/">
+          <strong  className="dark-grey-text">orgánicos</strong>
+        </MDBNavLink>
+        
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={toggleCollapse} />
-        <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
+        <MDBCollapse id="navbarCollapse3"  isOpen={isOpen} navbar>
           <MDBNavbarNav right>
             <MDBNavItem >
-              <MDBNavLink to="/">Home</MDBNavLink>
+              <MDBNavLink  className="dark-grey-text" to="/">Home</MDBNavLink>
             </MDBNavItem>
+
             <MDBNavItem>
-              <MDBNavLink to="#!">Shop</MDBNavLink>
+              <MDBNavLink  className="dark-grey-text" to="/shop">Shop</MDBNavLink>
+            </MDBNavItem>
+
+            <MDBNavItem>
+              <MDBNavLink  className="dark-grey-text" to="/cart">
+    Cart<sup><small className="cart-badge">{itemTotal()}</small></sup>
+              </MDBNavLink>
             </MDBNavItem>
 
             {!isAuthenticated() && (
               <Fragment>
               <MDBNavItem>
-              <MDBNavLink onClick={()=> setmodalSigninShow(true)} to="#!">Signin</MDBNavLink>
+              <MDBNavLink onClick={()=> setmodalSigninShow(true)} className="dark-grey-text"  to="#!">Signin</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
-              <MDBNavLink onClick={()=> setModalSignupShow(true)} to="#!">Signup</MDBNavLink>
+              <MDBNavLink onClick={()=> setModalSignupShow(true)} className="dark-grey-text"  to="#!">Signup</MDBNavLink>
               </MDBNavItem>
               </Fragment>
             )}
@@ -57,26 +70,26 @@ const Navbar = ({ history }, props) => {
 
             {isAuthenticated() && (
               <MDBNavItem>
-              <MDBNavLink onClick={()=> signout(()=>{
+              <MDBNavLink  className="dark-grey-text" onClick={()=> signout(()=>{
                 history.push('/')
-              })} to="#!">Signout</MDBNavLink>
+              })} to="/">Signout</MDBNavLink>
               </MDBNavItem>
             )}
 
             {isAuthenticated() && isAuthenticated().user.role === 0 && (
               <MDBNavItem>
-              <MDBNavLink to="/user/dashboard">Dashboard</MDBNavLink>
+              <MDBNavLink  className="dark-grey-text" to="/user/dashboard">Dashboard</MDBNavLink>
               </MDBNavItem>
             )}
 
             {isAuthenticated() && isAuthenticated().user.role === 1 && (
               <MDBNavItem>
-              <MDBNavLink to="/admin/dashboard">Dashboard</MDBNavLink>
+              <MDBNavLink  className="dark-grey-text" to="/admin/dashboard">Dashboard</MDBNavLink>
               </MDBNavItem>
             )}
             
 
-            <MDBNavItem>
+            {/* <MDBNavItem>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
                   <div className="d-none d-md-inline">Dropdown</div>
@@ -84,12 +97,9 @@ const Navbar = ({ history }, props) => {
 
                 <MDBDropdownMenu className="dropdown-default">
                   <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  {/* <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem> */}
                 </MDBDropdownMenu>
               </MDBDropdown>
-            </MDBNavItem>
+            </MDBNavItem> */}
 
           </MDBNavbarNav>
         </MDBCollapse>

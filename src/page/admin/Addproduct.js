@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../../auth/index';
 import { MDBContainer,MDBInput,MDBBtn,MDBRow,MDBAlert } from 'mdbreact'
 import { createProduct,getCategories } from './apiAdmin';
+// import ReactCrop from 'react-image-crop';
 
 const Addproduct = () => {
+
+    const { user, token } = isAuthenticated();
 
     const [values, setValues] = useState({
         name: "",
@@ -20,10 +23,13 @@ const Addproduct = () => {
         error: "",
         createdProduct: "",
         redirectToProfile: false,
+        farmer: user._id,
         formData: ""
     });
 
-    const { user, token } = isAuthenticated();
+    // console.log(values)
+
+
     const {
         name,
         description,
@@ -33,6 +39,7 @@ const Addproduct = () => {
         shipping,
         quantity,
         loading,
+        farmer,
         error,
         createdProduct,
         redirectToProfile,
@@ -51,21 +58,25 @@ const Addproduct = () => {
 
     useEffect(() => {
         init();
+        // console.log(user._id)
     }, []);
 
     const handleChange = name => event => {
         const value =
             name === "photo" ? event.target.files[0] : event.target.value;
         formData.set(name, value);
-        setValues({ ...values, [name]: value });
+        // console.log(formData)
+        setValues({ ...values, [name]: value});
+        // console.log(setValues)
     };
     
-
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: "", loading: true });
-
-        createProduct(user._id, token, formData).then(data => {
+        console.log(formData)
+        // console.log(values)
+        createProduct(user._id, token, formData)
+        .then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -108,8 +119,8 @@ const Addproduct = () => {
     )
 
     const newPostForm = () => (
-        <form className="mb-3" onSubmit={clickSubmit}>
 
+        <form className="mb-3" onSubmit={clickSubmit}>
             <h4>Post Photo</h4>
             <div className="form-group">
                 <label className="btn btn-secondary">
@@ -123,7 +134,7 @@ const Addproduct = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-uppercase">Name</label>
+                <label className="text-uppercase">ชื่อสินค้า</label>
                 <input
                     onChange={handleChange("name")}
                     type="text"
@@ -133,7 +144,7 @@ const Addproduct = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-uppercase">Description</label>
+                <label className="text-uppercase">รายละเอียด</label>
                 <textarea
                     onChange={handleChange("description")}
                     className="form-control"
@@ -142,7 +153,7 @@ const Addproduct = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-uppercase">Price</label>
+                <label className="text-uppercase">ราคา</label>
                 <input
                     onChange={handleChange("price")}
                     type="number"
@@ -152,7 +163,7 @@ const Addproduct = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-uppercase">Category</label>
+                <label className="text-uppercase">หมวดหมู่</label>
                 <select
                     onChange={handleChange("category")}
                     className="form-control"
@@ -165,7 +176,7 @@ const Addproduct = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-uppercase">Shipping</label>
+                <label className="text-uppercase">การขยส่ง</label>
                 <select
                     onChange={handleChange("shipping")}
                     className="form-control"
@@ -176,7 +187,7 @@ const Addproduct = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-uppercase">Quantity</label>
+                <label className="text-uppercase">จำนวน</label>
                 <input
                     onChange={handleChange("quantity")}
                     type="number"
@@ -184,12 +195,25 @@ const Addproduct = () => {
                     value={quantity}
                 />
             </div>
-            <button className="btn btn-success">Create Category</button>
+
+            {/* <div className="form-group">
+                <label className="text-uppercase">จำนวน</label>
+                <input
+                    onChange={handleChange("farmer")}
+                    type="text"
+                    className="form-control"
+                    value={farmer}
+                />
+            </div> */}
+            
+            <button className="btn btn-success">วางจำหน่าย</button>
+
         </form>
     )
 
     return(
         <Layout title="Add a new product" description={`Hi ${user.name}, ready to add a new Product ? `} className="container-fluid">
+          <br/>
           <MDBContainer>
               {/* {showSuccess()} */}
             <MDBRow>

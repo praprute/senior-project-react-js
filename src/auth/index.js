@@ -1,6 +1,7 @@
 import { API } from './../config'
 
 export const signup = user => { 
+  console.log(user)
   return fetch(`${API}/signup`, {
       method: "POST",
       headers: {
@@ -39,6 +40,7 @@ export const signin = user => {
 export const authenticate = (data, next) => {
   if (typeof window !== "undefined") {
     localStorage.setItem("jwt", JSON.stringify(data));
+    // console.log(data.user.name)
     next();
   }
 };  //function สำหรับจัดเก็บ token และ response data ลงใน localStorage ของ Browser

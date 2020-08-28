@@ -86,7 +86,10 @@ const AddCategory = () => {
     )
 
     return(
-        <Layout title="Add a new Category" description={`Hi ${user.name}, ready to add a new Category ? `} className="container-fluid">
+        <Layout 
+        title="Add a new Category" 
+        description={`Hi ${user.name}, ready to add a new Category ? `} 
+        className="container-fluid">
           <MDBContainer>
               {showSuccess()}
             <MDBRow>

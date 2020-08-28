@@ -63,7 +63,7 @@ const redirectUser = () => {
       ) 
     }else{
       return (
-        <Redirect to="/user/dashboard" /> 
+        <Redirect to="/" /> 
       )
     }
   }else{

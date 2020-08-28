@@ -24,6 +24,12 @@ const AdminDashboard = props => {
           <MDBListGroupItem>
             <Link className="nav-link" to="/profile/update">Update Profile</Link>
           </MDBListGroupItem>
+          <MDBListGroupItem>
+            <Link className="nav-link" to="/admin/orders">View orders</Link>
+          </MDBListGroupItem>
+          <MDBListGroupItem>
+            <Link className="nav-link" to="/admin/products">Manage Products</Link>
+          </MDBListGroupItem>
         </MDBListGroup>
       </MDBCard>
     )
@@ -57,6 +63,8 @@ const AdminDashboard = props => {
     return(
       
         <Layout title="Dashboard" description={`Hi ${name}, email: ${email}`} className="container-fluid">
+          <br/>
+          <br/>
           <MDBContainer>
             <MDBRow>
               <div className="col-md-3">
@@ -68,6 +76,8 @@ const AdminDashboard = props => {
               </div>
             </MDBRow>
           </MDBContainer>
+          <br/>
+          <br/>
         </Layout>
     )
 }
