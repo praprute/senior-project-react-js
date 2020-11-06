@@ -1,23 +1,35 @@
-import React,{ useState } from 'react';
+import React,{ useState,useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import {MDBRow, MDBInput, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText } from 'mdbreact';
 import ShowImage from './Showimage';
+import ModalTemp from '../../page/product/modalTemp';
 import moment from 'moment';
 import { addItem, updateItem, removeItem } from './CardHelper'
 import './style-card.css'
+import { getSensor, readSensorRealTime } from '../../page/admin/apiAdmin'
+import { isAuthenticated } from '../../auth/index'
+import RealtimeTemp from './TempRealtime'
 
 const Card = ({
   product,
   showViewProductButton = true,
   showAddToCartButton = true,
+  showTemp = true,
   cartUpdate = false,
   showRemoveProductButton = false,
+  showDescriptionprops = true,
   setRun = f => f,
   run = undefined
-}) => {
+},props) => {
 
   const [redirect, setRedirect] = useState(false);
   const [count, setCount] = useState(product.count)
+  const [modalGraph, setModalGraph] = useState(false)
+  const [TempData, setTempData ] = useState([]);
+  const [moiseData, setMoiseData ] = useState([]);
+  const [Label, setLabel] = useState([]);
+
+  const { user, token } = isAuthenticated();
   
   const showViewButton = (showViewProductButton) => {
     return(
@@ -27,6 +39,59 @@ const Card = ({
         ดูข้อมูลสินค้า
         </MDBBtn>
         </Link>
+      )
+    )
+  }
+
+  // const realtime = () => {
+  //   readSensorRealTime(token, product._id)
+  //     .then(data => {
+  //       console.log(data)
+  //     }
+  //     )
+  // }
+
+  useEffect(() => {
+    // realtime()
+  }, )
+
+  const fetchTemp = event => {
+    event.preventDefault();
+    getSensor(token, product._id)
+        .then(data => {
+          // console.log(data)
+                        if(data.error){
+                            console.log(data.error)
+                        }else{
+                          // console.log(data)
+                          var TempValue = []
+                          var Label = []
+                            for(var i = 0; i < data.length; i ++ ){
+                              console.log('log push')
+                              var dateTrans = moment(data[i].createdAt).format('YYYY-MM-DD HH:mm:ss')
+                              Label.push(dateTrans)
+                              TempValue.push(parseFloat(data[i].temp.$numberDecimal))
+                            }
+                            console.log(TempValue)
+                          var MoiseData = []
+                          for(var i = 0; i < data.length ; i ++ ){
+                            console.log('log push')
+                            MoiseData.push(parseFloat(data[i].moisture.$numberDecimal))
+                          }
+                            setLabel(Label)
+                            setMoiseData(MoiseData)
+                            setTempData(TempValue)
+                            setModalGraph(true)
+                        }
+        }) 
+  }
+
+  const showTempButton = (showTemp) => {
+    return(
+      showTemp && (
+        <MDBBtn  onClick={fetchTemp} color="indigo">  
+          อุณหภูมิและความชื้น
+        </MDBBtn>
       )
     )
   }
@@ -65,9 +130,9 @@ const shouldRedirect = redirect => {
 
   const showStock = quantity => {
     return quantity > 0 ? (
-        <span className="badge orange lighten-2 badge-pill mt-3 mb-3 ml-2">สินค้ายังมีอยู่</span>
+        <span className="badge orange lighten-2 badge-pill mt-3 mb-3 ml-2">inStock</span>
     ) : (
-        <span className="badge deep-orange darken-1 badge-pill mt-3 mb-3 ml-2">สินค้าหมดจ้า</span>
+        <span className="badge deep-orange darken-1 badge-pill mt-3 mb-3 ml-2">outStock</span>
     );
   };
 
@@ -83,13 +148,7 @@ const shouldRedirect = redirect => {
     return (
       cartUpdate && (
         <div>
-          {/* <div className="input-group mb-3">
-            <div className="input-group-prepend">
-            <span className="input-group-text">จำนวน</span>
-            <MDBInput type="number" value={count} onChange={handleChange(product._id)}/>
-            </div>
-          </div> */}
-          <div className="input-group mb-3">
+          <div className="input-group mb-3 mt-4">
             <div className="input-group-prepend">
               <span className="input-group-text">จำนวน</span>
             </div>
@@ -103,23 +162,36 @@ const shouldRedirect = redirect => {
   const showRemoveButton = showRemoveProductButton => {
     return (
       showRemoveProductButton && (
-        <button
+        <MDBBtn color="danger"
           onClick={() => {
             removeItem(product._id);
             setRun(!run); // run useEffect in parent Cart
           }}
-          className="btn btn-outline-danger mt-2 mb-2"
+          className="btn mt-3"
         >
           Remove Product
-        </button>
+        </MDBBtn>
       )
     );
   };
 
+  const showDescription = showDescriptionprops => {
+    if(showDescriptionprops){
+      return(
+      <p className="lead mt-1">{product.description.substring(0, 100)}</p> 
+      )
+    }else{
+      return(
+      null
+    )
+    }
+    
+  }
+
 
   return (
-
-      <MDBCard className="card-goods">
+<div>
+  <MDBCard className="card-goods">
       {/* <div className="card-header name">{product.name}</div> */}
       <div className="img-box">
       <ShowImage item={product} url="product"/>
@@ -128,31 +200,38 @@ const shouldRedirect = redirect => {
       {shouldRedirect(redirect)}
       <MDBCardTitle>{product.name}</MDBCardTitle>
       <MDBCardText>
-       {/* {product._id} */}
-        <p className="lead mt-1">{product.description.substring(0, 10)}</p>
-        
+        {showDescription(showDescriptionprops)}
+        <RealtimeTemp productId={product._id}/>
+        {/* {<p className="lead mt-1">{showDescription(props.showDescriptionprops)}</p>} */}
         <p className="black-8">{product.price} ฿</p>
-        {/* <p className="black-9">หมวดหมู่:{product.category && product.category.name}</p> */}
-        <p className="black-8">
+         <p className="black-8">
           Added on : {moment(product.createdAt).fromNow()}
         </p>
-
-        {/* <p>
-          {JSON.stringify(product.farmer._id)}
-        </p> */}
-        
       </MDBCardText>
       <MDBRow>
       {showStock(product.quantity)}
       </MDBRow>
       <MDBRow>
+        {showTempButton(showTemp)}
         {showViewButton(showViewProductButton)}
         {showAddToCartBtn(showAddToCartButton, product.quantity)}
-        {showRemoveButton(showRemoveProductButton)}
+        </MDBRow>
+      <MDBRow >
+         {showRemoveButton(showRemoveProductButton)}
         {showCartUpdateOptions(cartUpdate)}
-      </MDBRow>
+      </MDBRow>    
       </MDBCardBody>
       </MDBCard> 
+      <ModalTemp
+          show = {modalGraph}
+          productforsensorId = {product._id}
+          onHide = {()=> setModalGraph(false)}
+          dataTemp = {TempData}
+          dataMoise = {moiseData}
+          labelx = {Label}
+      />
+</div>
+      
     )
 } 
 

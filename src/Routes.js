@@ -14,7 +14,6 @@ import Orders from './page/admin/Orders';
 import Profile from '../src/page/user/Profile';
 import ManageProducts from './page/admin/ManageProducts'
 import UpdateProduct from './page/admin/UpdateProduct.js'
-
 const Routes = () => {
     return(
         <div>

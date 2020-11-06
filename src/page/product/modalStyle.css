@@ -1,0 +1,34 @@
+/* 
+#canvasjs-react-chart-container-0{
+text-align: center !important;
+background-color: red;
+} */
+
+/* .canvasjs-chart-canvas{
+    text-align: center;
+}
+
+div.modal-body{
+    overflow-x: scroll;
+}
+canvas.chartjs-size-monitor{
+    overflow-x: scroll;
+    display: block;
+} */
+
+.chartWrapper {
+    position: relative;
+}
+
+.chartWrapper > Line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events:none;
+}
+
+.chartAreaWrapper {
+    text-align: center;
+    width: 750px;
+    overflow-x: scroll;
+}

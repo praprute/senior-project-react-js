@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../../component/Layout';
 import { read, listRelated } from '../apiComponent/apiComponent';
 import Card from '../../component/card/Card';
-import { Container } from 'react-bootstrap';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 const Product = (props) => {
   const [product, setProduct] = useState({});
@@ -36,31 +36,33 @@ const Product = (props) => {
         title={product && product.name}
         description={product && 
           product.description &&
-          product.description.substring(0,100)}
-        className="container-fluid"
+          product.description.substring(0,300)}
+        className=""
         >
           <br/>
           <br/>
-          <Container>
-            <div className="row">
-        <div className="col-7">
-        <h4>{product.name}</h4>
+          <MDBContainer>
+            <MDBRow >
+        <MDBCol  md={7} xs={12}>
+        <h4>Your Product</h4>
         {
           product && 
           product.description && (
-          <Card product={product} showViewProductButton={false}/>
+          <Card showTemp={true} showDescriptionprops={true} product={product} showViewProductButton={false} />
         )}
-        </div>
-        <div className="col-5">
+        </MDBCol>
+        <MDBCol  md={5} xs={12}>
         <h4>Related products</h4>
             {relatedProduct.map((p, i) => (
                 <div className="mb-3" key={i} >
-                    <Card product={p} />
+                    <Card product={p} showDescriptionprops={true} showTemp={false} />
                 </div>
             ))}
-        </div>
-        </div>
-          </Container>
+        </MDBCol>
+        </MDBRow>
+          </MDBContainer>
+          <br/>
+          <br/>
         
         </Layout>
       )

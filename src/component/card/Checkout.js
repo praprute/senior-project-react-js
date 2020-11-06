@@ -46,7 +46,7 @@ const Checkout = ({ products }) => {
 
     const getTotal = () => {
         return products.reduce((currentValue, nextValue) => {
-            return currentValue + nextValue.count * nextValue.price;
+            return Math.ceil(currentValue + nextValue.count * nextValue.price/35);
         }, 0);
     };
 

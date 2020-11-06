@@ -39,11 +39,11 @@ useEffect(() => {
         </h4>
         <MDBListGroup>
           <MDBListGroupItem>
-            <Link className="nav-link" to="/card">My card</Link>
+            <Link className="nav-link" to="/cart">My card</Link>
           </MDBListGroupItem>
-          <MDBListGroupItem>
+          {/* <MDBListGroupItem>
             <Link className="nav-link" to={`/profile/${_id}`}>Update Profile</Link>
-          </MDBListGroupItem>
+          </MDBListGroupItem> */}
         </MDBListGroup>
       </MDBCard>
     )

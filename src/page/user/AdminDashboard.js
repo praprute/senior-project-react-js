@@ -21,9 +21,9 @@ const AdminDashboard = props => {
           <MDBListGroupItem>
             <Link className="nav-link" to="/card/product">Create Product</Link>
           </MDBListGroupItem>
-          <MDBListGroupItem>
+          {/* <MDBListGroupItem>
             <Link className="nav-link" to="/profile/update">Update Profile</Link>
-          </MDBListGroupItem>
+          </MDBListGroupItem> */}
           <MDBListGroupItem>
             <Link className="nav-link" to="/admin/orders">View orders</Link>
           </MDBListGroupItem>

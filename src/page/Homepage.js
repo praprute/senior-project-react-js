@@ -68,7 +68,7 @@ const Homepage = props => {
             <div className="iconbar-rad" >
             <img src={require('./../img/truck.png')} />
             <br/>
-            บริการขนส่งสินค้า
+            logistic
             </div>
           </div>
           </MDBCol>
@@ -77,7 +77,7 @@ const Homepage = props => {
           <div className="iconbar-rad1" >
             <img src={require('./../img/vegetable.png')} />
             <br/>
-            สดและสะอาด
+            Clean&amp;Fresh
             </div>
           </div>
           </MDBCol>
@@ -86,7 +86,7 @@ const Homepage = props => {
           <div className="iconbar-rad2" >
             <img src={require('./../img/award.png')} />
             <br/>
-            รับรองคุณภาพ
+            Qualty
             </div>  
           </div>
           </MDBCol>
@@ -95,46 +95,12 @@ const Homepage = props => {
           <div className="iconbar-rad3" > 
             <img src={require('./../img/support.png')} />
             <br/>
-            ช่วยเหลือ
+            Help
             </div>  
           </div>
           </MDBCol>
           </div>
         </Container>
-        
-      {/* <MDBRow>
-      <div className="new-arrivals">
-        <div className="container">
-          <Container className="text-new-arrivals">
-            <p className="p-green">Best Sellers</p>
-            <h2 className="h2-newarrival">OUR PRODUCTS</h2>
-            <Slider {...settings}>
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-        </Slider>
-          </Container>
-          <div className="row">
-
-          </div>
-        </div>
-      </div>
-      </MDBRow> */}
       <MDBContainer>
 
         <MDBRow>
@@ -144,7 +110,7 @@ const Homepage = props => {
           {productByArrival.map((product, i) => 
           (
           <MDBCol key={i} md="3" className="mb-4">
-            <Card product={product}/>
+            <Card product={product} showDescriptionprops={false} showTemp={false}/>
           </MDBCol>
           ))}
         </MDBRow>
@@ -183,7 +149,7 @@ const Homepage = props => {
           {productBySell.map((product, i) => 
           (
           <MDBCol md="3" className="mb-4">
-          <Card key={i} product={product}/>
+          <Card key={i} showDescriptionprops={false} product={product} showTemp={false}/>
           </MDBCol>
           ))}
 

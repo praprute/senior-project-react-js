@@ -140,11 +140,64 @@ export const getProduct = productId => {
         .catch(err => console.log(err));
 };
 
+// export const updateProduct = (productId, userId, token, product) => {
+//     return fetch(`${API}/product/${productId}/${userId}`, {
+//         method: 'PUT',
+//         headers: {
+//             Accept: 'application/json',
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`
+//         },
+//         body: product
+//     })
+//         .then(response => {
+//             return response.json();
+//         })
+//         .catch(err => console.log(err));
+// };
+
+export const getSensor = (token, productId) => {
+    console.log("API sensor")
+    console.log(JSON.stringify({productId}))
+    return fetch(`${API}/getSensor/:productId`, {
+        method: 'POST',
+        headers:{
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body:  JSON.stringify({productId})
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err))
+}
+
+export const readSensorRealTime = (token,id) => {
+    return fetch(`${API}/realtimeTemp`,{
+        method: 'POST',
+        headers:{
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body:  JSON.stringify({id})
+    }
+    )
+    .then(response => {
+        // console.log(response)
+        return response.json();
+    })
+    .catch(err => console.log(err))
+}
+
+
 export const updateProduct = (productId, userId, token, product) => {
     return fetch(`${API}/product/${productId}/${userId}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-            Accept: 'application/json',
+            Accept: "application/json",
             Authorization: `Bearer ${token}`
         },
         body: product
@@ -154,3 +207,19 @@ export const updateProduct = (productId, userId, token, product) => {
         })
         .catch(err => console.log(err));
 };
+
+// export const updateProduct = (productId, userId, token, product) => {
+//     return fetch(`${API}/product/${productId}/${userId}`, {
+//         method: 'PUT',
+//         headers: {
+//             Accept: 'application/json',
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`
+//         },
+//         body: product
+//     })
+//         .then(response => {
+//             return response.json();
+//         })
+//         .catch(err => console.log(err));
+// };

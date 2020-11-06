@@ -77,7 +77,7 @@ const Search = () => {
             <div className="row">
             {results.map((product, i) => (
                 <MDBCol md="3" className="mb-4">
-                <Card  key={i} product={product}/>
+                <Card showTemp={false}  showDescriptionprops={false} key={i} product={product}/>
                 </MDBCol>
             ))}
             </div>
@@ -93,8 +93,7 @@ const Search = () => {
             <form onSubmit={searchSubmit} class="form-inline my-2 my-lg-0 ml-auto">
               <input onChange={handleChange("search")} class="form-control" type="search" placeholder="Search" aria-label="Search"/>
               <MDBBtn className="badge-pill btn-outline-white btn-md my-2 my-sm-0 ml-3"  type="submit" color="success">Search</MDBBtn>
-              {/* <button class="btn badge-pill btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search */}
-              {/* </button> */}
+              
             </form>
             </div>
         </nav>

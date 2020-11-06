@@ -98,12 +98,6 @@ const Signup = props => {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" onChange={handleChange('password')} value={password}/>
           </Form.Group>
-          
-          <Button variant="primary" type="submit" size="lg" block>
-            facebook
-          </Button>
-  
-         {/* {JSON.stringify(values)} */}
         </Form>
         </Modal.Body>
         <Modal.Footer>

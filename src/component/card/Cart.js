@@ -5,6 +5,7 @@ import { getCart } from './CardHelper';
 import Card from './Card';
 import Checkout from './Checkout';
 import { Container } from 'react-bootstrap';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 
 const Cart = () => {
@@ -50,14 +51,13 @@ const Cart = () => {
             <br/>
             <br/>
             <Container>
-                <div className="row">
-                <div className="col-6">{items.length > 0 ? showItems(items) : noItemsMessage()}</div>
-
-                <div className="col-6">
-                    <h2 className="mb-4">Your cart summary</h2>
+                <MDBRow >
+                <MDBCol style={{marginBottom:'20px'}} md={6} xs={12}>
+                    <h2 className="mb-3">Your cart summary</h2>
                     <Checkout products={items} setRun={setRun} run={run} />
-                </div>
-            </div>
+                </MDBCol>
+                <MDBCol md={6} xs={12}>{items.length > 0 ? showItems(items) : noItemsMessage()}</MDBCol>
+            </MDBRow>
             </Container>
             <br/>
             <br/>

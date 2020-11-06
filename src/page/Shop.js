@@ -131,17 +131,13 @@ const Shop = () => {
                 </MDBCard>
             </MDBCol>
             <MDBCol md="8">
-                {/* <MDBRow>
-                    <h2 className="mb-4 ml-5">Product</h2>
-                </MDBRow> */}
                 <MDBRow>
                 {filterResults.map((product, i) => (
                 <MDBCol md="4" className="mb-4">
-                <Card key={i} product={product}/>
+                <Card key={i} showDescriptionprops={false} showTemp={false} product={product}/>
                 </MDBCol>
                 ))}
                 </MDBRow>
-                {/* {JSON.stringify(filterResults)} */}
                 <hr />
                 <MDBRow>
                 {loadMoreButton()}

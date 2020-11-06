@@ -3,8 +3,6 @@ import { Modal, Button, Form} from 'react-bootstrap'
 import { signin,authenticate,isAuthenticated } from '../../auth/index'
 import { Link, Redirect } from 'react-router-dom'
 
-
-
 const Signin = props => {
   const [values, setValues] = useState({
     email:"",
@@ -48,13 +46,11 @@ const showError = () => (
   {error}
   </div>
 )
-
 const showLoading = () => (
    loading && (<div className="alert alert-info">
      <h2>Loading...</h2>
    </div>)
 )
-
 const redirectUser = () => {
   if(redirectToReferrer) {
     if(user && user.role === 1){
@@ -92,9 +88,9 @@ const redirectUser = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" onChange={handleChange('password')} value={password}/>
         </Form.Group>
-        <Button variant="primary" type="submit" size="lg" block>
+        {/* <Button variant="primary" type="submit" size="lg" block>
           facebook
-        </Button>
+        </Button> */}
       </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -104,12 +100,10 @@ const redirectUser = () => {
     </Modal>
     )
   }
-
   if(isAuthenticated()){
     return <Redirect to="/" />
   }
 }
-
     return(
         <div className="Signin">
           {redirectUser()}
